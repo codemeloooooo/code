@@ -1,0 +1,49 @@
+ //单链表形式储存的回文字符串判定
+        //定义结点
+class ListNode {
+    int val;
+    ListNode next;
+    ListNode(int x){val = x;}
+}
+ 
+ 
+ public static boolean isPalindrome(ListNode head) {
+        //先验证结点和结点下一个是否为空，为空就没必要继续了
+        if (head == null || head.next == null){
+            return true;
+        }
+
+        /*定义快慢两个指针，慢指针一次一步，快指针一次两步（探路）
+        * 慢指针每走一步，用prev指针用让字符串前半部分形成逆序
+        * 这样当字符串长度是奇数时，快指针到尽头时，慢指针在中间的点,快指针下一个点是null
+        * 当字符串长度是偶数时，快指针到尽头时，慢指针在中间的点的左边一个点，快指针是null
+        *然后开始比较慢指针和prev指针的next即可
+        * 事实上单链表结构导致要三个指针，如果是双向链表，
+        * 只用两个指针，因为快指针就可以同时也起到prev的作用
+        * */
+        ListNode prev = null;
+        ListNode fast = head;
+        ListNode slow = head;
+
+
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            ListNode next = slow.next;
+            slow.next = prev;
+            prev = slow;
+            slow = next;
+        }
+
+        //字符串为奇数时
+        if (fast != null){
+            slow = slow.next;
+        }
+
+        while (slow != null){
+            if (slow.val != prev.val)
+                return false;
+            prev = prev.next;
+            slow = slow.next;
+        }
+        return true;
+    }
