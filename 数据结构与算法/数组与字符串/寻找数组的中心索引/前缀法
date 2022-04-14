@@ -1,3 +1,8 @@
+该方法只需要计算左侧元素和和数组总和，
+时间复杂度O（n）
+空间复杂度O（1）
+
+
 class Solution {
     public int pivotIndex(int[] nums) {
         //先验证数组是否为空
