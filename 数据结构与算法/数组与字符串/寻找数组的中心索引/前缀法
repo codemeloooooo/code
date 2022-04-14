@@ -1,0 +1,27 @@
+class Solution {
+    public int pivotIndex(int[] nums) {
+        //先验证数组是否为空
+        if(nums == null)
+            return -1;
+
+        //假设中心下标
+        int midInd;
+
+        //先算出数组总和
+        int arrSum = Arrays.stream(nums).sum();
+        //记左边元素的和
+        int leftSum = 0;
+        //当第一次出现中心下标时就立刻返回
+        //还没找到时，每次循环的结尾要把当前的midInd下标的元素
+        //加到左侧和
+        for(midInd = 0;midInd < nums.length;midInd++){
+           if(2 * leftSum + nums[midInd] == arrSum)
+             return midInd;
+
+           leftSum += nums[midInd];  
+        }
+            
+        //没有中心下标
+        return -1;
+    }
+}
