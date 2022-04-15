@@ -1,7 +1,7 @@
 时间复杂度O（n）
 空间复杂度o（1）
 
-但这个方法占用内存较多
+但这个方法占用内存较多，时间也消耗很多
 
 class Solution {
     public int searchInsert(int[] nums, int target) {
