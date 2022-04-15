@@ -1,3 +1,8 @@
+时间复杂度O（n）
+空间复杂度o（1）
+
+但这个方法占用内存较多
+
 class Solution {
     public int searchInsert(int[] nums, int target) {
         //数组没有重复元素
@@ -18,6 +23,7 @@ class Solution {
 
         //如果不存在数组，target会被安排插入的位置
         int targetPos = -1;
+        
         //遍历数组寻找target
         for(int i = 0;i < nums.length;i++){
             //数组元素不能超过这个范围
