@@ -1,0 +1,42 @@
+class Solution {
+    public int searchInsert(int[] nums, int target) {
+        //数组没有重复元素
+        //在遍历的时候，如果当前访问的元素等于target
+        //就把当前的下标记录，当目标不存在于这个数组时
+        //遍历完数组后返回下标
+        //如果一直到尽头都没有比这个target大的数，则返回末尾下标
+
+        //先验证参数
+        if(nums == null)
+            return -1;
+
+        if(nums.length > Math.pow(10,4) || nums.length < 1)
+            return -1;
+
+        if(target > Math.pow(10,4) || target < -Math.pow(10,4))
+        return -1;
+
+        //如果不存在数组，target会被安排插入的位置
+        int targetPos = -1;
+        //遍历数组寻找target
+        for(int i = 0;i < nums.length;i++){
+            //数组元素不能超过这个范围
+            if(nums[i] > Math.pow(10,4) || nums[i] < -Math.pow(10,4))
+                return -1;
+            //先判断等不等于target，再判断大于
+            //避免当碰到等于的时候还要多一步判断大于的步骤
+            if(nums[i] == target){
+                targetPos = i;
+                return i;
+            }
+        //没有找到目标值，当第一次遇到大于target的值时，即确定了要插入的位置
+        //返回这个下标
+            if(nums[i] > target){
+                targetPos = i;
+                return targetPos;
+            }
+        }
+        //一直到末尾都没大于等于target的数
+       return nums.length;
+    }
+}
