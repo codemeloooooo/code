@@ -1,0 +1,40 @@
+class Solution {
+    public int[][] merge(int[][] intervals) {
+        //验证参数
+        if(intervals.length == 0)
+            return new int[0][2];
+
+        //用这个保存最终答案
+        //因为一开始不知道有多少个答案，所以采用ArrayList能方便扩容
+        List<int[]> merged = new ArrayList<>();
+
+        //先给数组排序
+        //按从小到大排，也就是对比【0】下标
+        Arrays.sort(intervals,new Comparator<int[]>(){
+                public int compare(int[] intervals1,int[] intervals2){
+                      return intervals1[0] - intervals2[0];  
+                }
+            }
+        );
+       
+         //重叠的条件
+         //注意，按左端点小到大排序后，如果有某个区间完全包含另一个区间
+         //这两个区间的左端点必定相等
+        //当左边的区间的右端(第二个下标为1)大于右边区间的左端（第二个下标为0）
+        for(int col = 0;col < intervals.length;col++){
+                //将下个区间与merged中的区间比较
+                //不要intervals的两个区间比较完后在处理然后加入merge
+                //这样会很麻烦
+                // 不重叠
+                if(merged.size() == 0 || merged.get(merged.size() - 1)[1] < intervals[col][0])
+                    merged.add(new int[]{intervals[col][0],intervals[col][1]});
+                    //重叠,将当前最后的区间的右端改成两个对比区间的右端，其中较大的那个,
+                    //不能直接改成intervals的右端，否则如果merged的最后一个区间比intervals的右端更大，那结果就错了
+                else    
+                    merged.get(merged.size() - 1)[1] = 
+                            Math.max(intervals[col][1],merged.get(merged.size() - 1)[1]);
+                                        
+        }
+        return merged.toArray(new int[merged.size()][]);
+    }
+}
