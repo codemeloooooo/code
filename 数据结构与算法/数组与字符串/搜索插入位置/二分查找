@@ -1,0 +1,26 @@
+lass Solution {
+    public int searchInsert(int[] nums, int target) {
+       //二分查找来做
+       //左端下标和右端下标
+       int low = 0;
+       int high = nums.length - 1;
+
+       while(low <= high){
+           //求出中间数下标
+           int mid = low + ((high - low) >> 2);
+
+           //如果nums[mid]刚好是target，直接返回
+           if(nums[mid] == target)
+              return mid;
+           //如果mid大于target,high = mid - 1
+           //如果小于，low = mid + 1
+           //+1，-1是因为上面验证过mid不是target的下标，所以跳过
+           if(nums[mid] > target)
+              high = mid - 1;
+           else
+              low = mid + 1; 
+       }
+        //当目标不存在于数组，下标就是low;
+            return low;
+    }
+}
