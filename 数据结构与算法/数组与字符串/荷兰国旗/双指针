@@ -1,0 +1,58 @@
+class StrSort {
+    public void doublePointer(String str) {
+        //双指针，先分类大小写字母，再分类数字和大写字母
+        //left指针和right指针一开始都指向同一个
+        //如果left指的是小写字母，left++，right++
+        //直到遇到不是小写字母，left不动，right开始往下走
+        //每走一步比较left和right,
+        //当left是小写字母，不做任何事，left++
+        //当left是数字大写字母且right是小写字母，交换，否则不交换
+        //当right大于等于末尾长度，结束循环，此时left下标的上一个下标对应就是最后一个小写字母
+        //不动小写字母，开始同样的方式区分数字和大写字母
+
+        char[] string = str.toCharArray();
+        int left = 0;
+        int right = 0;
+
+        while (right < string.length - 1) {
+            if (string[left] >= 'a' && string[left] <= 'z') {
+                left++;
+                right++;
+            }else{
+                right++;
+                if (string[right] >= 'a' && string[right] <= 'z'){
+                    char temp = string[left];
+                    string[left] = string[right];
+                    string[right] = temp;
+                    //交换完后left指向的就是小写字母了，所以left++，继续判断下一个
+                    left++;
+                    //如果不把right及时调回left的位置，则逻辑就会出错
+                    right = left;
+                    continue;
+                }
+            }
+        }
+
+      //排数字和大写字母
+        right = left;
+        while (right < string.length - 1) {
+            if (string[left] >= '0' && string[left] <= '9') {
+                left++;
+                right++;
+            }else{
+                right++;
+                if (string[right] >= '0' && string[right] <= '9'){
+                    char temp = string[left];
+                    string[left] = string[right];
+                    string[right] = temp;
+                    //交换完后left指向的就是数字了，所以left++，继续判断下一个
+                    left++;
+                    //如果不把right及时调回left的位置，则逻辑就会出错
+                    right = left;
+                    continue;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(string));
+    }
+}
