@@ -6,7 +6,7 @@ lass Solution {
        int high = nums.length - 1;
 
        while(low <= high){
-           //求出中间数下标
+           //求出中间数下标，这样算可以防止溢出
            int mid = low + ((high - low) >> 2);
 
            //如果nums[mid]刚好是target，直接返回
